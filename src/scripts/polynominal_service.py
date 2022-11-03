@@ -31,8 +31,8 @@ def start_polynominal_service():
         except rospy.ServiceException:
             rospy.loginfo("Service call failed.")
 
-        x1 += 2
-        x2 += 4
+        x1 += 1
+        x2 += 2
 
         rate.sleep()  # сон в соответствии с выдерживаемой частотой
 
