@@ -14,17 +14,12 @@ def start_polynominal_service():
 
         data = 'x1: %d / x2: %d' % (msg.x1, msg.x2)
 
-        rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
-        pub.publish(msg)  # публикация сообщения в топик
-
-        x1 += 2
-        x2 += 4
-
         # заполнение сообщения
         msg.x1 = x1
         msg.x2 = x2
 
-        rate.sleep()  # сон в соответствии с выдерживаемой частотой
+        rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
+        pub.publish(msg)  # публикация сообщения в топик
 
         rospy.wait_for_service('poly')
 
@@ -32,9 +27,14 @@ def start_polynominal_service():
             request_service = rospy.ServiceProxy('poly', poly)  # получаем объект сервиса
             resp = request_service(x1, x2) # получаем объект `polyResponse`
 
-            rospy.loginfo('Response: %s' % resp.result)
+            rospy.loginfo('Response by service: %s' % resp.result)
         except rospy.ServiceException:
             rospy.loginfo("Service call failed.")
+
+        x1 += 2
+        x2 += 4
+
+        rate.sleep()  # сон в соответствии с выдерживаемой частотой
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
 pub = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию

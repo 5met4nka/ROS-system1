@@ -1,11 +1,13 @@
 <launch>
     <group ns="launch">
-    	<node name="poly_service" pkg="system1" type="poly_service.py" output="screen"/>
         <node name="polynominal_service" pkg="system1" type="polynominal_service.py" output="screen">
 		<remap from="my_chat_topic1" to="my_chat_topic1"/>
     	</node>
         <node name="summing_service" pkg="system1" type="summing_service.py" output="screen">
 		<remap from="my_chat_topic1" to="my_chat_topic1"/>
+    	</node>
+    	<node name="poly_service" pkg="system1" type="poly_service.py" output="screen">
+    		<remap from="poly" to="poly"/>
     	</node>
     </group>
 </launch>
