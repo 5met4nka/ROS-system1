@@ -4,7 +4,7 @@
 
 import rospy # импортируем основной модуль `rospy`
 from system1.msg import sum # импортируем модуль сообщения
-
+from system1.srv import poly, polyRequest, polyResponse
 
 def start_polynominal_service():
     msg = sum()  # создаем объект сообщения
@@ -25,6 +25,16 @@ def start_polynominal_service():
         msg.x2 = x2
 
         rate.sleep()  # сон в соответствии с выдерживаемой частотой
+
+        rospy.wait_for_service('poly')
+
+        try:
+            request_service = rospy.ServiceProxy('poly', poly)  # получаем объект сервиса
+            resp = request_service(x1, x2) # получаем объект `polyResponse`
+
+            rospy.loginfo('Response: %s' % resp.result)
+        except rospy.ServiceException:
+            rospy.loginfo("Service call failed.")
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
 pub = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
