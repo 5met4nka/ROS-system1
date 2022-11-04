@@ -7,6 +7,7 @@ from system1.srv import poly, polyResponse # импортируем модуль
 
 def handle_request_service(req):
     result = req.x1 + req.x2 ** 2
+    rospy.loginfo("Processing request...")
     rospy.loginfo("Returning [%s + %s^2 = %s]" % (req.x1, req.x2, result))
 
     resp = polyResponse()
