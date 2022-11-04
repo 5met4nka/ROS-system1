@@ -15,13 +15,13 @@ def handle_request_service(req):
 
     return resp
 
-def poly_service():
-    rospy.init_node('poly_service') # инициализация узла
-    s = rospy.Service('poly', poly, handle_request_service) # передаем имя сервиса,
+def request_service():
+    rospy.init_node('request_service') # инициализация узла
+    s = rospy.Service('request_service', poly, handle_request_service) # передаем имя сервиса,
     # тип сообщений и функцию обработчика
     rospy.loginfo("Ready to calc.") # вывод в терминал информации
     rospy.spin() # будет удерживать программу рабочей до тех пор,
     # пока ROS не завершится или узел не бует прерван
 
 
-poly_service() # запускаем этот сервер
+request_service() # запускаем этот сервис

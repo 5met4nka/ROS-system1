@@ -21,10 +21,10 @@ def start_polynominal_service():
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
         pub.publish(msg)  # публикация сообщения в топик
 
-        rospy.wait_for_service('poly')
+        rospy.wait_for_service('request_service')
 
         try:
-            request_service = rospy.ServiceProxy('poly', poly)  # получаем объект сервиса
+            request_service = rospy.ServiceProxy('request_service', poly)  # получаем объект сервиса
             resp = request_service(x1, x2) # получаем объект `polyResponse`
 
             rospy.loginfo('Response by service: %s' % resp.result)
