@@ -12,11 +12,11 @@ def start_polynominal_service():
     x2 = 0
     while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
 
-        data = 'x1: %d / x2: %d' % (msg.x1, msg.x2)
-
         # заполнение сообщения
         msg.x1 = x1
         msg.x2 = x2
+
+        data = 'polynominal service send x1: %d / x2: %d' % (msg.x1, msg.x2)
 
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
         pub.publish(msg)  # публикация сообщения в топик
@@ -27,9 +27,9 @@ def start_polynominal_service():
             request_service = rospy.ServiceProxy('request_service', poly)  # получаем объект сервиса
             resp = request_service(x1, x2) # получаем объект `polyResponse`
 
-            rospy.loginfo('Response by service: %s' % resp.result)
+            rospy.loginfo('pesponse by service: %s' % resp.result)
         except rospy.ServiceException:
-            rospy.loginfo("Service call failed.")
+            rospy.loginfo("service call failed.")
 
         x1 += 1
         x2 += 2

@@ -7,8 +7,8 @@ from system1.srv import poly, polyResponse # импортируем модуль
 
 def handle_request_service(req):
     result = req.x1 + req.x2 ** 2
-    rospy.loginfo("Processing request...")
-    rospy.loginfo("Returning [%s + %s^2 = %s]" % (req.x1, req.x2, result))
+    rospy.loginfo("processing request...")
+    rospy.loginfo("returning [%s + %s^2 = %s]" % (req.x1, req.x2, result))
 
     resp = polyResponse()
     resp.result = result
@@ -19,7 +19,7 @@ def request_service():
     rospy.init_node('request_service') # инициализация узла
     s = rospy.Service('request_service', poly, handle_request_service) # передаем имя сервиса,
     # тип сообщений и функцию обработчика
-    rospy.loginfo("Ready to calc.") # вывод в терминал информации
+    rospy.loginfo("request service ready to calc.") # вывод в терминал информации
     rospy.spin() # будет удерживать программу рабочей до тех пор,
     # пока ROS не завершится или узел не бует прерван
 
