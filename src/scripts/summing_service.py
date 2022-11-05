@@ -12,6 +12,6 @@ def summing_service(msg):
     rospy.loginfo('summing service heard x1 is: %d , x2 is: %d according sum is: %d' % (msg.x1, msg.x2, msg.sum)) # Вывод в терминал
     # информации (содержание сообщения)
 
-rospy.init_node('summing_service')
-rospy.Subscriber('my_chat_topic1', sum, summing_service, queue_size=10)
+rospy.init_node('summing_service') # необходимо зарегистрировать узел в системе ROS
+rospy.Subscriber('my_chat_topic1', sum, summing_service, queue_size=10) # зарегистрировать топик на подписку
 rospy.spin() # будет удерживать программу рабочей до тех пор, пока ROS не завершится или узел не бует прерван
