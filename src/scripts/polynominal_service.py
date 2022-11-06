@@ -11,7 +11,8 @@ def start_polynominal_service():
     x1 = 0
     x2 = 0
     while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
-
+        
+        rospy.Subscriber('my_chat_topic2', sum, polynominal_service, queue_size=10)  # зарегистрировать топик на подписку
         # заполнение сообщения
         msg.x1 = x1
         msg.x2 = x2
@@ -19,25 +20,30 @@ def start_polynominal_service():
         data = 'polynominal service send x1: %d / x2: %d' % (msg.x1, msg.x2)
 
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
-        pub.publish(msg)  # публикация сообщения в топик
+        pub1.publish(msg)  # публикация сообщения в топик
+
+        rate.sleep()  # сон в соответствии с выдерживаемой частотой
 
         rospy.wait_for_service('request_service')
-
         try:
             request_service = rospy.ServiceProxy('request_service', poly)  # получаем объект сервиса
             resp = request_service(x1, x2) # получаем объект `polyResponse`
 
-            rospy.loginfo('pesponse by service: %s' % resp.result)
+            rospy.loginfo('pesponse by service: %s' % resp.sumFromRequestService)
         except rospy.ServiceException:
             rospy.loginfo("service call failed.")
 
         x1 += 1
         x2 += 2
-
-        rate.sleep()  # сон в соответствии с выдерживаемой частотой
+        
+def polynominal_service(msg):
+    rospy.loginfo('callback from summing_service, sum is %d' % msg.sumFromSummingService) # Вывод в терминал
+    # информации (содержание сообщения)
+    pub1.publish(msg)
+    rate.sleep()  # сон в соответствии с выдерживаемой частотой
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
-pub = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
+pub1 = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
 # с указанием имени, типа сообщения для топика и размера очереди
 rate = rospy.Rate(1) # используется для выдерживания частоты выполнения кода, Гц
 

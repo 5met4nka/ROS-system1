@@ -6,12 +6,14 @@ import rospy # импортируем основной модуль `rospy`
 from system1.srv import poly, polyResponse # импортируем модуль типа сервиса `Poly` вместе с типом ответа
 
 def handle_request_service(req):
-    result = req.x1 + req.x2 ** 2
+    sumFromRequestService = req.x1 + req.x2 ** 2
+    rospy.loginfo("---")
     rospy.loginfo("processing request...")
-    rospy.loginfo("returning [%s + %s^2 = %s]" % (req.x1, req.x2, result))
+    rospy.loginfo("returning [%s + %s^2 = %s]" % (req.x1, req.x2, sumFromRequestService))
+    rospy.loginfo("---")
 
     resp = polyResponse()
-    resp.result = result
+    resp.sumFromRequestService = sumFromRequestService
 
     return resp
 
