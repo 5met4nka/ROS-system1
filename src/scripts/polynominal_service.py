@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # необходима для запуска,
 # она сообщает системе о том, что данный файл необходимо запускать через интерпретатор `python`
-
+import time
 import rospy # импортируем основной модуль `rospy`
 from system1.msg import sum # импортируем модуль сообщения
 from system1.srv import poly, polyRequest, polyResponse
@@ -22,8 +22,6 @@ def start_polynominal_service():
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
         pub1.publish(msg)  # публикация сообщения в топик
 
-        rate.sleep()  # сон в соответствии с выдерживаемой частотой
-
         rospy.wait_for_service('request_service')
         try:
             request_service = rospy.ServiceProxy('request_service', poly)  # получаем объект сервиса
@@ -35,17 +33,16 @@ def start_polynominal_service():
 
         x1 += 1
         x2 += 2
+        time.sleep(1)
         
 def polynominal_service(msg):
     rospy.loginfo('callback from summing_service, sum is %d' % msg.sumFromSummingService) # Вывод в терминал
     # информации (содержание сообщения)
     pub1.publish(msg)
-    rate.sleep()  # сон в соответствии с выдерживаемой частотой
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
 pub1 = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
 # с указанием имени, типа сообщения для топика и размера очереди
-rate = rospy.Rate(1) # используется для выдерживания частоты выполнения кода, Гц
 
 try:
     start_polynominal_service()
