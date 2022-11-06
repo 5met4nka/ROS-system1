@@ -12,7 +12,6 @@ def start_polynominal_service():
     x2 = 0
     while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
         
-        rospy.Subscriber('my_chat_topic2', sum, polynominal_service, queue_size=10)  # зарегистрировать топик на подписку
         # заполнение сообщения
         msg.x1 = x1
         msg.x2 = x2
@@ -21,6 +20,8 @@ def start_polynominal_service():
 
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
         pub1.publish(msg)  # публикация сообщения в топик
+
+        
 
         rospy.wait_for_service('request_service')
         try:
@@ -33,6 +34,8 @@ def start_polynominal_service():
 
         x1 += 1
         x2 += 2
+        time.sleep(1)
+        rospy.Subscriber('my_chat_topic2', sum, polynominal_service, queue_size=10)  # зарегистрировать топик на подписку
         time.sleep(1)
         
 def polynominal_service(msg):
