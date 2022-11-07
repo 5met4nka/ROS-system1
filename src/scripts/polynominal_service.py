@@ -35,8 +35,6 @@ def start_polynominal_service():
         x1 += 1
         x2 += 2
         time.sleep(1)
-        rospy.Subscriber('my_chat_topic2', sum, polynominal_service, queue_size=10)  # зарегистрировать топик на подписку
-        time.sleep(1)
         
 def polynominal_service(msg):
     rospy.loginfo('callback from summing_service, sum is %d' % msg.sumFromSummingService) # Вывод в терминал
@@ -45,6 +43,7 @@ def polynominal_service(msg):
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
 pub1 = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
+rospy.Subscriber('my_chat_topic2', sum, polynominal_service, queue_size=10)  # зарегистрировать топик на подписку
 # с указанием имени, типа сообщения для топика и размера очереди
 
 try:
