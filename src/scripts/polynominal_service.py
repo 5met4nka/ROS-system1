@@ -7,10 +7,10 @@ from system1.msg import sum # импортируем модуль сообщен
 from system1.srv import poly, polyRequest, polyResponse
 
 def start_polynominal_service():
-    msg = sum()  # создаем объект сообщения
-    x1 = 0
-    x2 = 0
-    while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
+	msg = sum()  # создаем объект сообщения
+	x1 = 0
+	x2 = 0
+	while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
         
         # заполнение сообщения
         msg.x1 = x1
@@ -20,8 +20,6 @@ def start_polynominal_service():
 
         rospy.loginfo(data)  # вывод в терминал информации (содержание сообщения)
         pub1.publish(msg)  # публикация сообщения в топик
-
-        
 
         rospy.wait_for_service('request_service')
         try:
@@ -37,9 +35,9 @@ def start_polynominal_service():
         time.sleep(1)
         
 def polynominal_service(msg):
-    rospy.loginfo('callback from summing_service, sum is %d' % msg.sumFromSummingService) # Вывод в терминал
-    # информации (содержание сообщения)
-    pub1.publish(msg)
+	rospy.loginfo('callback from summing_service, sum is %d' % msg.sumFromSummingService) # Вывод в терминал
+	# информации (содержание сообщения)
+	pub1.publish(msg)
 
 rospy.init_node('polynominal_service') # необходимо зарегистрировать узел в системе ROS
 pub1 = rospy.Publisher('my_chat_topic1', sum, queue_size=10) # зарегистрировать топик на публикацию
