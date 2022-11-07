@@ -12,7 +12,7 @@ def start_polynominal_service():
 	x2 = 0
 	while not rospy.is_shutdown():  # бесконечный цикл, пока ROS система работает
         
-	# заполнение сообщения
+	    # заполнение сообщения
 		msg.x1 = x1
 		msg.x2 = x2
 
