@@ -7,13 +7,13 @@ import rospy # импортируем основной модуль `rospy`
 from system1.msg import sum # импортируем модуль сообщения
 
 def summing_service(msg):
-    x1 = msg.x1
-    x2 = msg.x2
-    msg.sumFromSummingService = msg.x1 + msg.x2
-    rospy.loginfo('summing service heard x1 is: %d , x2 is: %d according sum is: %d' % (msg.x1, msg.x2, msg.sumFromSummingService)) # Вывод в терминал
-    # информации (содержание сообщения)
-    time.sleep(1.1)
-    pub2.publish(msg)  # публикация сообщения в топик
+	x1 = msg.x1
+	x2 = msg.x2
+	msg.sumFromSummingService = msg.x1 + msg.x2
+	rospy.loginfo('summing service heard x1 is: %d , x2 is: %d according sum is: %d' % (msg.x1, msg.x2, msg.sumFromSummingService)) # Вывод в терминал
+	# информации (содержание сообщения)
+	time.sleep(1.1)
+	pub2.publish(msg)  # публикация сообщения в топик
     
 
 
