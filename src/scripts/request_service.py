@@ -12,10 +12,10 @@ def handle_request_service(req):
 	rospy.loginfo("returning [%s + %s^2 = %s]" % (req.x1, req.x2, sumFromRequestService))
 	rospy.loginfo("---")
 
-resp = polyResponse()
-resp.sumFromRequestService = sumFromRequestService
+	resp = polyResponse()
+	resp.sumFromRequestService = sumFromRequestService
 
-return resp
+	return resp
 
 def request_service():
 	rospy.init_node('request_service') # инициализация узла
